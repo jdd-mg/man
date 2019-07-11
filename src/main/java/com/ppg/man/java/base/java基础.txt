@@ -1,0 +1,6 @@
+1. String StringBuffer  StringBuilder
+
+2. 接口与抽象类 区别；
+
+3. transient作用
+
