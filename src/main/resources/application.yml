@@ -3,4 +3,26 @@ spring:
   aop:
     auto: true
     proxy-target-class: true
+  datasource:
+    url: jdbc:mysql://172.16.201.4:6606/aoc_ticket?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: jdd.com
+    driver-class-name: com.mysql.cj.jdbc.Driver
+logging:
+  level:
+    com:
+      ppg:
+        man:
+          mybatis: debug
+    org:
+      spring: debug
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+
+jdd: rrrr
+server:
+  port: 8080
+
+
 

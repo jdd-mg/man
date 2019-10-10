@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ppg.man.mybatis.mapper.base.UserBaseMapper">
+
+
+    <insert id="insertUser" >
+        INSERT INTO `t_user`
+        (
+        <trim suffixOverrides=",">
+                    <if test="nId!=null">
+                        `n_id`,
+                    </if>
+                    <if test="sEmail!=null">
+                        `s_email`,
+                    </if>
+                    <if test="sName!=null">
+                        `s_name`,
+                    </if>
+                    <if test="nRpMoney!=null">
+                        `n_rp_money`,
+                    </if>
+                    <if test="nRpMoney2!=null">
+                        `n_rp_money2`,
+                    </if>
+        </trim>
+        )
+        VALUES
+        (
+        <trim suffixOverrides=",">
+                <if test="nId!=null">
+                    #{nId},
+                </if>
+                <if test="sEmail!=null">
+                    #{sEmail},
+                </if>
+                <if test="sName!=null">
+                    #{sName},
+                </if>
+                <if test="nRpMoney!=null">
+                    #{nRpMoney},
+                </if>
+                <if test="nRpMoney2!=null">
+                    #{nRpMoney2},
+                </if>
+        </trim>
+        )
+    </insert>
+
+
+
+
+    <update id="updateUser">
+        UPDATE `t_user`
+        SET
+        <trim suffixOverrides=",">
+            <if test="sEmail != null and sEmail!=''">
+                `s_email` = #{sEmail},
+            </if>
+            <if test="sName != null and sName!=''">
+                `s_name` = #{sName},
+            </if>
+            <if test="nRpMoney != null">
+                `n_rp_money` = #{nRpMoney},
+            </if>
+            <if test="nRpMoney2 != null">
+                `n_rp_money2` = #{nRpMoney2},
+            </if>
+        </trim>
+        WHERE
+        <trim suffixOverrides="and">
+                `n_id` = #{nId} and
+        </trim>
+    </update>
+
+    <update id="update">
+        UPDATE `t_user`
+        SET
+        <trim suffixOverrides=",">
+        <if test="set.sEmail != null and set.sEmail!=''">
+            `s_email` = #{set.sEmail},
+        </if>
+        <if test="set.sName != null and set.sName!=''">
+            `s_name` = #{set.sName},
+        </if>
+        <if test="set.nRpMoney != null">
+            `n_rp_money` = #{set.nRpMoney},
+        </if>
+        <if test="set.nRpMoney2 != null">
+            `n_rp_money2` = #{set.nRpMoney2},
+        </if>
+        </trim>
+        <trim prefix="where" suffixOverrides="and | or">
+                <if test="where.nIdList != null">
+                    `n_id` in
+                    <foreach collection="where.nIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.nIdSt !=null">
+                `n_id` >= #{where.nIdSt} and
+            </if>
+            <if test="where.nIdEd!=null">
+                `n_id` &lt;= #{where.nIdEd} and
+            </if>
+                <if test="where.sEmailList != null">
+                    `s_email` in
+                    <foreach collection="where.sEmailList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySEmail!=null and where.fuzzySEmail.size()>0">
+                (
+                <foreach collection="where.fuzzySEmail"  separator="or" item="item">
+                    `S_email` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySEmail!=null and where.rightFuzzySEmail.size()>0">
+                (
+                <foreach collection="where.rightFuzzySEmail"  separator="or" item="item">
+                    `S_email` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.sNameList != null">
+                    `s_name` in
+                    <foreach collection="where.sNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test ="where.fuzzySName!=null and where.fuzzySName.size()>0">
+                (
+                <foreach collection="where.fuzzySName"  separator="or" item="item">
+                    `S_name` like concat('%',#{item},'%')
+                </foreach>
+                ) and
+            </if>
+            <if test ="where.rightFuzzySName!=null and where.rightFuzzySName.size()>0">
+                (
+                <foreach collection="where.rightFuzzySName"  separator="or" item="item">
+                    `S_name` like concat(#{item},'%')
+                </foreach>
+                ) and
+            </if>
+                <if test="where.nRpMoneyList != null">
+                    `n_rp_money` in
+                    <foreach collection="where.nRpMoneyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.nRpMoneySt !=null">
+                `n_rp_money` >= #{where.nRpMoneySt} and
+            </if>
+            <if test="where.nRpMoneyEd!=null">
+                `n_rp_money` &lt;= #{where.nRpMoneyEd} and
+            </if>
+                <if test="where.nRpMoney2List != null">
+                    `n_rp_money2` in
+                    <foreach collection="where.nRpMoney2List" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+            <if test="where.nRpMoney2St !=null">
+                `n_rp_money2` >= #{where.nRpMoney2St} and
+            </if>
+            <if test="where.nRpMoney2Ed!=null">
+                `n_rp_money2` &lt;= #{where.nRpMoney2Ed} and
+            </if>
+        </trim>
+    </update>
+
+
+    <resultMap type="com.ppg.man.mybatis.domain.User" id="UserMap">
+        <result property="nId" column="n_id"/>
+        <result property="sEmail" column="s_email"/>
+        <result property="sName" column="s_name"/>
+        <result property="nRpMoney" column="n_rp_money"/>
+        <result property="nRpMoney2" column="n_rp_money2"/>
+    </resultMap>
+
+
+    <select id="queryUser" resultMap="UserMap">
+        select
+        <include refid="baseResult"></include>
+        from  `t_user`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="nId != null">
+                `n_id` = #{nId} and
+            </if>
+            <if test="sEmail != null and sEmail!=''">
+                `s_email` = #{sEmail} and
+            </if>
+            <if test="sName != null and sName!=''">
+--                 `s_name` = #{sName} and
+                `s_name` like CONCAT('%', #{sName}, '%') and
+            </if>
+            <if test="nRpMoney != null">
+                `n_rp_money` = #{nRpMoney} and
+            </if>
+            <if test="nRpMoney2 != null">
+                `n_rp_money2` = #{nRpMoney2} and
+            </if>
+            <if test = "(_parameter instanceof com.ppg.man.mybatis.domain.User$QueryBuilder) == true">
+                <if test="nIdList != null">
+                    `n_id` in
+                    <foreach collection="nIdList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="nIdSt !=null">
+                    `n_id` >= #{nIdSt} and
+                </if>
+                <if test="nIdEd!=null">
+                    `n_id` &lt;= #{nIdEd} and
+                </if>
+                <if test="sEmailList != null">
+                    `s_email` in
+                    <foreach collection="sEmailList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySEmail!=null and fuzzySEmail.size()>0">
+                    (
+                    <foreach collection="fuzzySEmail"  separator="or" item="item">
+                        `S_email` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySEmail!=null and rightFuzzySEmail.size()>0">
+                    (
+                    <foreach collection="rightFuzzySEmail"  separator="or" item="item">
+                        `S_email` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="sNameList != null">
+                    `s_name` in
+                    <foreach collection="sNameList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test ="fuzzySName!=null and fuzzySName.size()>0">
+                    (
+                    <foreach collection="fuzzySName"  separator="or" item="item">
+                        `S_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySName!=null and rightFuzzySName.size()>0">
+                    (
+                    <foreach collection="rightFuzzySName"  separator="or" item="item">
+                        `S_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test="nRpMoneyList != null">
+                    `n_rp_money` in
+                    <foreach collection="nRpMoneyList" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="nRpMoneySt !=null">
+                    `n_rp_money` >= #{nRpMoneySt} and
+                </if>
+                <if test="nRpMoneyEd!=null">
+                    `n_rp_money` &lt;= #{nRpMoneyEd} and
+                </if>
+                <if test="nRpMoney2List != null">
+                    `n_rp_money2` in
+                    <foreach collection="nRpMoney2List" close=")" open="(" separator="," item="item">
+                        #{item}
+                    </foreach> and
+                </if>
+                <if test="nRpMoney2St !=null">
+                    `n_rp_money2` >= #{nRpMoney2St} and
+                </if>
+                <if test="nRpMoney2Ed!=null">
+                    `n_rp_money2` &lt;= #{nRpMoney2Ed} and
+                </if>
+            </if>
+        </trim>
+    </select>
+
+    <select id="queryUserLimit1" resultMap="UserMap">
+        select
+        <include refid="baseResult"></include>
+        from  `t_user`
+        <trim prefix="where" suffixOverrides="and | or">
+            <if test="nId != null">
+                `n_id` = #{nId} and
+            </if>
+            <if test="sEmail != null and sEmail!=''">
+                `s_email` = #{sEmail} and
+            </if>
+            <if test="sName != null and sName!=''">
+                `s_name` = #{sName} and
+            </if>
+            <if test="nRpMoney != null">
+                `n_rp_money` = #{nRpMoney} and
+            </if>
+            <if test="nRpMoney2 != null">
+                `n_rp_money2` = #{nRpMoney2} and
+            </if>
+            <if test = "(_parameter instanceof com.ppg.man.mybatis.domain.User$QueryBuilder) == true">
+                    <if test="nIdList != null">
+                        `n_id` in
+                        <foreach collection="nIdList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="nIdSt !=null">
+                    `n_id` >= #{nIdSt} and
+                </if>
+                <if test="nIdEd!=null">
+                    `n_id` &lt;= #{nIdEd} and
+                </if>
+                    <if test="sEmailList != null">
+                        `s_email` in
+                        <foreach collection="sEmailList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySEmail!=null and fuzzySEmail.size()>0">
+                    (
+                    <foreach collection="fuzzySEmail"  separator="or" item="item">
+                        `S_email` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySEmail!=null and rightFuzzySEmail.size()>0">
+                    (
+                    <foreach collection="rightFuzzySEmail"  separator="or" item="item">
+                        `S_email` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="sNameList != null">
+                        `s_name` in
+                        <foreach collection="sNameList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test ="fuzzySName!=null and fuzzySName.size()>0">
+                    (
+                    <foreach collection="fuzzySName"  separator="or" item="item">
+                        `S_name` like concat('%',#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                <if test ="rightFuzzySName!=null and rightFuzzySName.size()>0">
+                    (
+                    <foreach collection="rightFuzzySName"  separator="or" item="item">
+                        `S_name` like concat(#{item},'%')
+                    </foreach>
+                    ) and
+                </if>
+                    <if test="nRpMoneyList != null">
+                        `n_rp_money` in
+                        <foreach collection="nRpMoneyList" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="nRpMoneySt !=null">
+                    `n_rp_money` >= #{nRpMoneySt} and
+                </if>
+                <if test="nRpMoneyEd!=null">
+                    `n_rp_money` &lt;= #{nRpMoneyEd} and
+                </if>
+                    <if test="nRpMoney2List != null">
+                        `n_rp_money2` in
+                        <foreach collection="nRpMoney2List" close=")" open="(" separator="," item="item">
+                            #{item}
+                        </foreach> and
+                    </if>
+                <if test="nRpMoney2St !=null">
+                    `n_rp_money2` >= #{nRpMoney2St} and
+                </if>
+                <if test="nRpMoney2Ed!=null">
+                    `n_rp_money2` &lt;= #{nRpMoney2Ed} and
+                </if>
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <sql id="allResult">
+        <trim suffixOverrides=",">
+        `n_id`,
+        `s_email`,
+        `s_name`,
+        `n_rp_money`,
+        `n_rp_money2`,
+        </trim>
+    </sql>
+
+
+
+    <sql id="baseResult">
+        <trim suffixOverrides=",">
+            <if test = "(_parameter instanceof com.ppg.man.mybatis.domain.User$QueryBuilder) == true">
+
+                <if test="fetchFields==null">
+                    <include refid="allResult"></include>
+                </if>
+                <if test="fetchFields!=null">
+                    <if test="fetchFields.AllFields !=null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields ==null and fetchFields.fetchFields==null and fetchFields.excludeFields==null and fetchFields.otherFields==null">
+                        <include refid="allResult"></include>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.fetchFields!=null">
+                    <if test="fetchFields.fetchFields.nId==true">
+                        `n_id`,
+                    </if>
+                    <if test="fetchFields.fetchFields.sEmail==true">
+                        `s_email`,
+                    </if>
+                    <if test="fetchFields.fetchFields.sName==true">
+                        `s_name`,
+                    </if>
+                    <if test="fetchFields.fetchFields.nRpMoney==true">
+                        `n_rp_money`,
+                    </if>
+                    <if test="fetchFields.fetchFields.nRpMoney2==true">
+                        `n_rp_money2`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.AllFields==null and fetchFields.excludeFields!=null">
+                    <if test="fetchFields.excludeFields.nId==null">
+                        `n_id`,
+                    </if>
+                    <if test="fetchFields.excludeFields.sEmail==null">
+                        `s_email`,
+                    </if>
+                    <if test="fetchFields.excludeFields.sName==null">
+                        `s_name`,
+                    </if>
+                    <if test="fetchFields.excludeFields.nRpMoney==null">
+                        `n_rp_money`,
+                    </if>
+                    <if test="fetchFields.excludeFields.nRpMoney2==null">
+                        `n_rp_money2`,
+                    </if>
+                    </if>
+                    <if test="fetchFields.otherFields!=null and fetchFields.otherFields.size>0">
+                        <foreach collection="fetchFields.otherFields" index="index" item="item" separator=",">
+                        `#{item}`
+                        </foreach>
+                    </if>
+                </if>
+            </if>
+            <if test="(_parameter instanceof com.ppg.man.mybatis.domain.User$QueryBuilder) == false" >
+                <include refid="allResult"></include>
+            </if>
+
+        </trim>
+    </sql>
+
+
+</mapper>
