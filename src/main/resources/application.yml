@@ -16,8 +16,6 @@ logging:
           mybatis: debug
     org:
       spring: debug
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
 
 
 jdd: rrrr
