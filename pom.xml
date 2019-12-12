@@ -82,15 +82,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.jdd</groupId>
-            <artifactId>xxdd_xc_rpc</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.jdd.pushcenter</groupId>
-            <artifactId>jdd_pushcenter_hessian</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-spring-context</artifactId>
+            <version>0.3.4</version>
         </dependency>
 
     </dependencies>
