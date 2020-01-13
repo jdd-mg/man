@@ -19,7 +19,6 @@ public class MyAOP {
 
         try {
             Object proceed = joinPoint.proceed();
-            System.out.println(proceed);
             return proceed;
         } catch (Throwable throwable) {
             throwable.printStackTrace();
