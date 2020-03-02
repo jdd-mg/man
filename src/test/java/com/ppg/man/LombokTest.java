@@ -20,27 +20,5 @@ public class LombokTest {
 
     public static void main(String[] args) {
 
-        LombokTest lombokTest = new LombokTest("LombokTest", 1);
-
-        final int id1 = lombokTest.getId();
-
-        final String name1 = lombokTest.getName();
-
-        executorService.execute(new Runnable() {
-
-//            private int id;
-//
-//            private String name;
-//
-//            {
-//                this.id = id1;
-//                this.name = name1;
-//            }
-
-            @Override
-            public void run() {
-                System.out.println(id1 + name1);
-            }
-        });
     }
 }
