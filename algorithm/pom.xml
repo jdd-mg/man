@@ -14,4 +14,13 @@
     <packaging>jar</packaging>
     <version>1.0.0-SNAPSHOT</version>
 
+    <dependencies>
+
+        <dependency>
+            <groupId>com.ppg</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
+    </dependencies>
 </project>
